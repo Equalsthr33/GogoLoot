@@ -72,7 +72,56 @@ function GogoLoot:PrintTrade()
         if GogoLoot.tradeState.itemsMe[i][3] > 0 then
             if string.len(sent) > 0 then
                 if i == sentLastIndex then
-                    sent = sent .. ", and "
+                    sent = sent .. ", and " -- combine the total stack of items instead of repeating the same item for full stacks. Similar to my code here:
+					--[[function TradeLogUnlimited_Output(trade, func, plain)
+	local whoLink = plain and trade.who or "|Hplayer:"..trade.who.."|h"..trade.who.."|h";
+	if(trade.result == "complete") then
+		local playerList = TradeLogUnlimited_GetTradeList( trade.playerMoney, trade.playerItems, trade.targetItems[7], plain and TradeLogUnlimited_GetMoneyPlainText or TradeLogUnlimited_GetMoneyColorText)
+		local targetList = TradeLogUnlimited_GetTradeList( trade.targetMoney, trade.targetItems, trade.playerItems[7], plain and TradeLogUnlimited_GetMoneyPlainText or TradeLogUnlimited_GetMoneyColorText)
+
+		if(#playerList==0 and #targetList==0) then
+			func(string.gsub(TRADE_LOG_SUCCESS_NO_EXCHANGE, "%%t", whoLink), 1, 1, 1);
+		else
+			if(plain) then
+				local breaked = false
+				local first = true
+				local msg = string.gsub(TRADE_LOG_SUCCESS, "%%t", whoLink);
+				if(#playerList > 0) then
+					msg = msg..""..TRADE_LOG_HANDOUT..""
+					for _, v in pairs(playerList) do
+						if(strlen(msg..v) > 255) then
+							breaked = true;
+							func(msg)
+							msg = "and "..v
+							first = false
+						else
+							if(not first) then msg = msg..", " end
+							first = false
+							msg = msg..v
+						end
+					end
+					first = true
+				end
+
+				if(#targetList > 0) then
+					if(breaked) then 
+						func(msg)
+						msg = ""..TRADE_LOG_RECEIVE..""
+					else
+						msg = msg..""..TRADE_LOG_RECEIVE..""
+					end
+					for _, v in pairs(targetList) do
+						if(strlen(msg..v) > 255) then
+							func(msg)
+							msg = "and "..v
+							first = false
+						else
+							if(not first) then msg = msg..", " end
+							first = false
+							msg = msg..v
+						end
+					end
+				end]]--
                 else
                     sent = sent .. ", "
                 end
